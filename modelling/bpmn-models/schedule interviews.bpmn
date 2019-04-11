@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1bueyg0" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.2">
+  <bpmn:process id="Process_1i5hgbi" isExecutable="true">
+    <bpmn:subProcess id="SubProcess_16gk3k2" name="Schedule interviews">
+      <bpmn:task id="Task_1q18g4n" name="Collect feedback">
+        <bpmn:incoming>SequenceFlow_0tp3z8n</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_0ncoqpc</bpmn:outgoing>
+      </bpmn:task>
+      <bpmn:task id="Task_0bi4l90" name="Conduct interview">
+        <bpmn:incoming>SequenceFlow_1rngntr</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_0tp3z8n</bpmn:outgoing>
+        <bpmn:standardLoopCharacteristics />
+      </bpmn:task>
+      <bpmn:task id="Task_10dwnd5" name="Schedule interview">
+        <bpmn:incoming>SequenceFlow_1kgr7j0</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_1rngntr</bpmn:outgoing>
+      </bpmn:task>
+      <bpmn:startEvent id="StartEvent_1rz1rl0">
+        <bpmn:outgoing>SequenceFlow_1kgr7j0</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:endEvent id="EndEvent_02wac5f">
+        <bpmn:incoming>SequenceFlow_0ncoqpc</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="SequenceFlow_1rngntr" sourceRef="Task_10dwnd5" targetRef="Task_0bi4l90" />
+      <bpmn:sequenceFlow id="SequenceFlow_0tp3z8n" sourceRef="Task_0bi4l90" targetRef="Task_1q18g4n" />
+      <bpmn:sequenceFlow id="SequenceFlow_1kgr7j0" sourceRef="StartEvent_1rz1rl0" targetRef="Task_10dwnd5" />
+      <bpmn:sequenceFlow id="SequenceFlow_0ncoqpc" sourceRef="Task_1q18g4n" targetRef="EndEvent_02wac5f" />
+    </bpmn:subProcess>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1i5hgbi">
+      <bpmndi:BPMNShape id="SubProcess_16gk3k2_di" bpmnElement="SubProcess_16gk3k2" isExpanded="true">
+        <dc:Bounds x="117" y="81" width="799" height="345" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1q18g4n_di" bpmnElement="Task_1q18g4n">
+        <dc:Bounds x="682" y="232" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0bi4l90_di" bpmnElement="Task_0bi4l90">
+        <dc:Bounds x="454" y="232" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_10dwnd5_di" bpmnElement="Task_10dwnd5">
+        <dc:Bounds x="251" y="232" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1rz1rl0_di" bpmnElement="StartEvent_1rz1rl0">
+        <dc:Bounds x="150" y="254" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_02wac5f_di" bpmnElement="EndEvent_02wac5f">
+        <dc:Bounds x="846" y="254" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1rngntr_di" bpmnElement="SequenceFlow_1rngntr">
+        <di:waypoint x="351" y="272" />
+        <di:waypoint x="454" y="272" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0tp3z8n_di" bpmnElement="SequenceFlow_0tp3z8n">
+        <di:waypoint x="554" y="272" />
+        <di:waypoint x="682" y="272" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1kgr7j0_di" bpmnElement="SequenceFlow_1kgr7j0">
+        <di:waypoint x="186" y="272" />
+        <di:waypoint x="251" y="272" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ncoqpc_di" bpmnElement="SequenceFlow_0ncoqpc">
+        <di:waypoint x="782" y="272" />
+        <di:waypoint x="846" y="272" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

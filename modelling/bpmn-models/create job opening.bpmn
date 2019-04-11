@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_02tss50" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.2">
+  <bpmn:process id="Process_1tcylr9" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1erll1w">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="jobName" label="Job name" type="string" />
+          <camunda:formField id="budgetNeeded" label="Budget needed" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_0eiox9c</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_1je7t6f" name="vacancy rejected">
+      <bpmn:incoming>SequenceFlow_08avkt4</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="EndEvent_04x44re">
+      <bpmn:incoming>SequenceFlow_0za50ux</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0eiox9c" sourceRef="StartEvent_1erll1w" targetRef="Task_07kba50" />
+    <bpmn:sequenceFlow id="SequenceFlow_1nvo3av" sourceRef="Task_07kba50" targetRef="Task_0pa11ts" />
+    <bpmn:sequenceFlow id="SequenceFlow_0g0r59n" sourceRef="Task_0pa11ts" targetRef="ExclusiveGateway_1m28l36" />
+    <bpmn:sequenceFlow id="SequenceFlow_08avkt4" sourceRef="ExclusiveGateway_1m28l36" targetRef="EndEvent_1je7t6f" />
+    <bpmn:sequenceFlow id="SequenceFlow_1ecqf2s" sourceRef="ExclusiveGateway_1m28l36" targetRef="Task_0u1a5cf" />
+    <bpmn:sequenceFlow id="SequenceFlow_0za50ux" sourceRef="Task_0u1a5cf" targetRef="EndEvent_04x44re" />
+    <bpmn:task id="Task_0u1a5cf" name="Create job opening">
+      <bpmn:incoming>SequenceFlow_1ecqf2s</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0za50ux</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="Task_0pa11ts" name="Check Budget">
+      <bpmn:incoming>SequenceFlow_1nvo3av</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0g0r59n</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:parallelGateway id="ExclusiveGateway_1m28l36" name="Budget approved?">
+      <bpmn:incoming>SequenceFlow_0g0r59n</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_08avkt4</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_1ecqf2s</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:serviceTask id="Task_07kba50" name="Define requirements">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/ng5weh404yqqyv2qkb5oh7wl9fd7woyk</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+    "Job name": jobName,
+    "Budget needed": budgetNeeded
+});</camunda:script>
+            </camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0eiox9c</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1nvo3av</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1tcylr9">
+      <bpmndi:BPMNShape id="EndEvent_1je7t6f_di" bpmnElement="EndEvent_1je7t6f">
+        <dc:Bounds x="694" y="184" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="671" y="227" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1erll1w_di" bpmnElement="StartEvent_1erll1w">
+        <dc:Bounds x="156" y="184" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_04x44re_di" bpmnElement="EndEvent_04x44re">
+        <dc:Bounds x="694" y="59" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1nvo3av_di" bpmnElement="SequenceFlow_1nvo3av">
+        <di:waypoint x="362" y="202" />
+        <di:waypoint x="409" y="202" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0g0r59n_di" bpmnElement="SequenceFlow_0g0r59n">
+        <di:waypoint x="509" y="202" />
+        <di:waypoint x="573" y="202" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_08avkt4_di" bpmnElement="SequenceFlow_08avkt4">
+        <di:waypoint x="623" y="202" />
+        <di:waypoint x="694" y="202" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ecqf2s_di" bpmnElement="SequenceFlow_1ecqf2s">
+        <di:waypoint x="598" y="177" />
+        <di:waypoint x="598" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0eiox9c_di" bpmnElement="SequenceFlow_0eiox9c">
+        <di:waypoint x="192" y="202" />
+        <di:waypoint x="262" y="202" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0za50ux_di" bpmnElement="SequenceFlow_0za50ux">
+        <di:waypoint x="648" y="77" />
+        <di:waypoint x="694" y="77" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Task_028epe1_di" bpmnElement="Task_0u1a5cf">
+        <dc:Bounds x="548" y="37" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1gtfb7h_di" bpmnElement="Task_0pa11ts">
+        <dc:Bounds x="409" y="162" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ParallelGateway_1d3qm3o_di" bpmnElement="ExclusiveGateway_1m28l36">
+        <dc:Bounds x="573" y="177" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="553" y="237" width="90" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_18c0y17_di" bpmnElement="Task_07kba50">
+        <dc:Bounds x="262" y="162" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

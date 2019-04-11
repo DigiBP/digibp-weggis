@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1wlyscw" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.2">
+  <bpmn:process id="Process_1h6pht1" isExecutable="true">
+    <bpmn:subProcess id="SubProcess_06tribb" name="Hire candidate">
+      <bpmn:task id="Task_1ft2eu9" name="Sign Contract">
+        <bpmn:incoming>SequenceFlow_01j0x23</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_0xkwpvv</bpmn:outgoing>
+      </bpmn:task>
+      <bpmn:task id="Task_0h8cwtx" name="Send Contract to condidate">
+        <bpmn:incoming>SequenceFlow_0xkwpvv</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_0rhy9z4</bpmn:outgoing>
+      </bpmn:task>
+      <bpmn:task id="Task_10dgu1d" name="Finalize contract">
+        <bpmn:incoming>SequenceFlow_1280ihf</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_01j0x23</bpmn:outgoing>
+      </bpmn:task>
+      <bpmn:startEvent id="StartEvent_1ek7vmn">
+        <bpmn:outgoing>SequenceFlow_1280ihf</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:endEvent id="EndEvent_1366nkk">
+        <bpmn:incoming>SequenceFlow_0rhy9z4</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="SequenceFlow_01j0x23" sourceRef="Task_10dgu1d" targetRef="Task_1ft2eu9" />
+      <bpmn:sequenceFlow id="SequenceFlow_0xkwpvv" sourceRef="Task_1ft2eu9" targetRef="Task_0h8cwtx" />
+      <bpmn:sequenceFlow id="SequenceFlow_1280ihf" sourceRef="StartEvent_1ek7vmn" targetRef="Task_10dgu1d" />
+      <bpmn:sequenceFlow id="SequenceFlow_0rhy9z4" sourceRef="Task_0h8cwtx" targetRef="EndEvent_1366nkk" />
+    </bpmn:subProcess>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_1h6pht1">
+      <bpmndi:BPMNShape id="SubProcess_06tribb_di" bpmnElement="SubProcess_06tribb" isExpanded="true">
+        <dc:Bounds x="156" y="81" width="742" height="339" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1ft2eu9_di" bpmnElement="Task_1ft2eu9">
+        <dc:Bounds x="439" y="226" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_0h8cwtx_di" bpmnElement="Task_0h8cwtx">
+        <dc:Bounds x="631" y="226" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_10dgu1d_di" bpmnElement="Task_10dgu1d">
+        <dc:Bounds x="307" y="226" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1ek7vmn_di" bpmnElement="StartEvent_1ek7vmn">
+        <dc:Bounds x="199" y="248" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1366nkk_di" bpmnElement="EndEvent_1366nkk">
+        <dc:Bounds x="823" y="248" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_01j0x23_di" bpmnElement="SequenceFlow_01j0x23">
+        <di:waypoint x="407" y="266" />
+        <di:waypoint x="439" y="266" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0xkwpvv_di" bpmnElement="SequenceFlow_0xkwpvv">
+        <di:waypoint x="539" y="266" />
+        <di:waypoint x="631" y="266" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1280ihf_di" bpmnElement="SequenceFlow_1280ihf">
+        <di:waypoint x="235" y="266" />
+        <di:waypoint x="307" y="266" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0rhy9z4_di" bpmnElement="SequenceFlow_0rhy9z4">
+        <di:waypoint x="731" y="266" />
+        <di:waypoint x="823" y="266" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
