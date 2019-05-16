@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="Definitions_1q385wk" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.2">
+  <decision id="Decision_1uh50qx" name="Decision 1">
+    <decisionTable id="decisionTable_1">
+      <input id="input_1" label="Budget Available">
+        <inputExpression id="inputExpression_1" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Approval" name="Approval" typeRef="boolean" />
+      <rule id="DecisionRule_1wm6sp5">
+        <inputEntry id="UnaryTests_0k45665">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0b50j97">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0q8nxkk">
+        <inputEntry id="UnaryTests_03q6mvi">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wuekpn">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
