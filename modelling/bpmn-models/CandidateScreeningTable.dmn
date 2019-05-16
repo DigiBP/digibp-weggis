@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_140c30t" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.2">
+  <decision id="Decision_13r2x7l" name="Decision 1">
+    <extensionElements>
+      <biodi:bounds x="157" y="81" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="decisionTable_1">
+      <input id="input_1" label="Is the experience sufficient?">
+        <inputExpression id="inputExpression_1" typeRef="boolean">
+          <text>sufficientExperience</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_05mxvgg" label="Is the minimum degree requirement  met?">
+        <inputExpression id="LiteralExpression_01lpjxx" typeRef="boolean">
+          <text>minimumDegree</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" typeRef="boolean" />
+      <rule id="DecisionRule_04d0a7r">
+        <inputEntry id="UnaryTests_0np41pr">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05szwsv">
+          <text>-</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09zkm2u">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1sjyk03">
+        <inputEntry id="UnaryTests_0mbhwez">
+          <text>-</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dle8js">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1o87h6x">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1fvci9p">
+        <inputEntry id="UnaryTests_024x2h1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11erjdh">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1w5slvp">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
