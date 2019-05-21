@@ -70,7 +70,7 @@ object.budgetAvailable;</camunda:script>
       <bpmn:outgoing>SequenceFlow_1gi9bdw</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="EndEvent_04x44re" name="Vacancy rejected">
-      <bpmn:incoming>SequenceFlow_0vyaply</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_14vpm94</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:exclusiveGateway id="ExclusiveGateway_0zqa8o2">
       <bpmn:incoming>SequenceFlow_1gi9bdw</bpmn:incoming>
@@ -81,7 +81,7 @@ object.budgetAvailable;</camunda:script>
     <bpmn:sequenceFlow id="SequenceFlow_1u6y8h9" name="true" sourceRef="ExclusiveGateway_0zqa8o2" targetRef="ServiceTask_0ck3xy6">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${budgetAvailable==true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_0vyaply" name="false" sourceRef="ExclusiveGateway_0zqa8o2" targetRef="EndEvent_04x44re">
+    <bpmn:sequenceFlow id="SequenceFlow_0vyaply" name="false" sourceRef="ExclusiveGateway_0zqa8o2" targetRef="ServiceTask_05a9azh">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${budgetAvailable==false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:serviceTask id="ServiceTask_0ck3xy6" name="Create Job Opening">
@@ -97,7 +97,7 @@ object.budgetAvailable;</camunda:script>
       <bpmn:incoming>SequenceFlow_1u6y8h9</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0uw25bw</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_1b08gq5" name="Inform Requestor">
+    <bpmn:serviceTask id="ServiceTask_1b08gq5" name="Inform Requestor about approval">
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
@@ -110,6 +110,20 @@ object.budgetAvailable;</camunda:script>
       <bpmn:incoming>SequenceFlow_0uw25bw</bpmn:incoming>
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_0uw25bw" sourceRef="ServiceTask_0ck3xy6" targetRef="ServiceTask_1b08gq5" />
+    <bpmn:serviceTask id="ServiceTask_05a9azh" name="Inform Requestor about rejection">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/c5re0uvsdldbg5mjt6kku36o2c8fiaot</camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0vyaply</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_14vpm94</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_14vpm94" sourceRef="ServiceTask_05a9azh" targetRef="EndEvent_04x44re" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="createJob">
@@ -131,9 +145,9 @@ object.budgetAvailable;</camunda:script>
         <dc:Bounds x="406" y="304" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_04x44re_di" bpmnElement="EndEvent_04x44re">
-        <dc:Bounds x="954" y="326" width="36" height="36" />
+        <dc:Bounds x="861" y="326" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="931" y="296" width="83" height="14" />
+          <dc:Bounds x="838" y="296" width="83" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ExclusiveGateway_0zqa8o2_di" bpmnElement="ExclusiveGateway_0zqa8o2" isMarkerVisible="true">
@@ -152,9 +166,9 @@ object.budgetAvailable;</camunda:script>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0vyaply_di" bpmnElement="SequenceFlow_0vyaply">
         <di:waypoint x="647" y="344" />
-        <di:waypoint x="954" y="344" />
+        <di:waypoint x="707" y="344" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="706" y="324" width="23" height="14" />
+          <dc:Bounds x="649" y="324" width="23" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_0ck3xy6_di" bpmnElement="ServiceTask_0ck3xy6">
@@ -166,6 +180,13 @@ object.budgetAvailable;</camunda:script>
       <bpmndi:BPMNEdge id="SequenceFlow_0uw25bw_di" bpmnElement="SequenceFlow_0uw25bw">
         <di:waypoint x="622" y="195" />
         <di:waypoint x="622" y="161" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_05a9azh_di" bpmnElement="ServiceTask_05a9azh">
+        <dc:Bounds x="707" y="304" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_14vpm94_di" bpmnElement="SequenceFlow_14vpm94">
+        <di:waypoint x="807" y="344" />
+        <di:waypoint x="861" y="344" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
