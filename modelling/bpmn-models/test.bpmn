@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0h8a1bw" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.2">
+  <bpmn:process id="TestREST" isExecutable="true">
+    <bpmn:userTask id="Task_1rw1k7m" name="Test">
+      <bpmn:incoming>SequenceFlow_0654c4g</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0xq5s3h</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0654c4g" sourceRef="StartEvent_1" targetRef="Task_1rw1k7m" />
+    <bpmn:endEvent id="EndEvent_1m0taz0">
+      <bpmn:incoming>SequenceFlow_0xq5s3h</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0xq5s3h" sourceRef="Task_1rw1k7m" targetRef="EndEvent_1m0taz0" />
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_0654c4g</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_0max8my" />
+    </bpmn:startEvent>
+  </bpmn:process>
+  <bpmn:message id="Message_0max8my" name="Message_0e7f4v6" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="TestREST">
+      <bpmndi:BPMNShape id="UserTask_1ygp1s7_di" bpmnElement="Task_1rw1k7m">
+        <dc:Bounds x="315" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0654c4g_di" bpmnElement="SequenceFlow_0654c4g">
+        <di:waypoint x="215" y="121" />
+        <di:waypoint x="315" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1m0taz0_di" bpmnElement="EndEvent_1m0taz0">
+        <dc:Bounds x="515" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0xq5s3h_di" bpmnElement="SequenceFlow_0xq5s3h">
+        <di:waypoint x="415" y="121" />
+        <di:waypoint x="515" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="StartEvent_1fkyfl6_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
