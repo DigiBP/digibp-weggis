@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_0q9l8b7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.2">
+  <bpmn:process id="Process_Screening" isExecutable="true">
+    <bpmn:sequenceFlow id="SequenceFlow_08mc3vv" sourceRef="StartEvent_1" targetRef="Task_10gzlci" />
+    <bpmn:sequenceFlow id="SequenceFlow_06du3i7" sourceRef="Task_10gzlci" targetRef="Task_0pa8aok" />
+    <bpmn:serviceTask id="Task_10gzlci" name="Get Candidate Info">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/t5xa6uxi1w41uegwlegawgykfj7m9fb3</camunda:inputParameter>
+            <camunda:outputParameter name="candidateName">
+              <camunda:script scriptFormat="JavaScript">object = JSON.parse(response);
+candidateName = object.candidateName;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="candidateEmail">
+              <camunda:script scriptFormat="JavaScript">object = JSON.parse(response);
+candidateEmail= object.candidateEmail;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="candidateAge">
+              <camunda:script scriptFormat="JavaScript">object = JSON.parse(response);
+candidateAge= object.candidateAge;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="candidateEducation">
+              <camunda:script scriptFormat="JavaScript">object = JSON.parse(response);
+candidateEducation= object.candidateEducation;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="candidateExperience">
+              <camunda:script scriptFormat="JavaScript">object = JSON.parse(response);
+candidateExperience= object.candidateExperience;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="candidateResume">
+              <camunda:script scriptFormat="JavaScript">object = JSON.parse(response);
+candidateResume= object.candidateResume;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="roleApplied">
+              <camunda:script scriptFormat="JavaScript">object = JSON.parse(response);
+roleApplied= object.roleApplied;</camunda:script>
+            </camunda:outputParameter>
+            <camunda:outputParameter name="rowNumber">
+              <camunda:script scriptFormat="JavaScript">object = JSON.parse(response);
+rowNumber= object.rowNumber;</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_08mc3vv</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_06du3i7</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_0t21ozx">
+      <bpmn:incoming>SequenceFlow_16ww3ml</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_17wy5hs" name="eligible?">
+      <bpmn:incoming>SequenceFlow_0bncebw</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_10pk3hx</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0gftdlv</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="SequenceFlow_10pk3hx" name="no" sourceRef="ExclusiveGateway_17wy5hs" targetRef="Task_RejectCandidate">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${candidateEligible.decision== false}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:endEvent id="EndEvent_1n9u5hf">
+      <bpmn:incoming>SequenceFlow_0ymnv8s</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0ymnv8s" sourceRef="Task_SendCandidatetoShortlist" targetRef="EndEvent_1n9u5hf" />
+    <bpmn:sequenceFlow id="SequenceFlow_0bncebw" sourceRef="Task_0pa8aok" targetRef="ExclusiveGateway_17wy5hs" />
+    <bpmn:sequenceFlow id="SequenceFlow_0gftdlv" name="yes" sourceRef="ExclusiveGateway_17wy5hs" targetRef="Task_SendCandidatetoShortlist">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${candidateEligible.decision== true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:businessRuleTask id="Task_0pa8aok" name="Check Eligibility" camunda:resultVariable="candidateEligible" camunda:decisionRef="Decision_CandidateScreening2" camunda:mapDecisionResult="singleResult">
+      <bpmn:incoming>SequenceFlow_06du3i7</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0bncebw</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="FormField_1epnmrm" label="You have recieved a new application. " type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_08mc3vv</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_1bvl9eh" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_16ww3ml" sourceRef="Task_RejectCandidate" targetRef="EndEvent_0t21ozx" />
+    <bpmn:serviceTask id="Task_SendCandidatetoShortlist" name="Send Candidate to Shortlist">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/l7o3lay69aurdufknqhhgh495m0oadev</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+"candidateName": candidateName,
+"candidateAge": candidateAge,
+"candidateEmail": candidateEmail,
+"candidateExperience": candidateExperience,
+"candidateEducation": candidateEducation,
+"candidateResume": candidateResume,
+"roleApplied":roleApplied
+});</camunda:script>
+            </camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0gftdlv</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ymnv8s</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_RejectCandidate">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/goo4v6vrfkvch7go4v0m21y6frbrn3p4</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Content-Type">application/json</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:inputParameter name="payload">
+              <camunda:script scriptFormat="JavaScript">out = JSON.stringify({
+"status": "rejected",
+"rowNumber":rowNumber,
+"candidateEmail": candidateEmail});</camunda:script>
+            </camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_10pk3hx</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_16ww3ml</bpmn:outgoing>
+    </bpmn:serviceTask>
+  </bpmn:process>
+  <bpmn:message id="Message_1bvl9eh" name="Message_NewApplicationRecieved" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_Screening">
+      <bpmndi:BPMNEdge id="SequenceFlow_08mc3vv_di" bpmnElement="SequenceFlow_08mc3vv">
+        <di:waypoint x="189" y="203" />
+        <di:waypoint x="265" y="203" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_06du3i7_di" bpmnElement="SequenceFlow_06du3i7">
+        <di:waypoint x="365" y="203" />
+        <di:waypoint x="413" y="203" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1706583_di" bpmnElement="Task_10gzlci">
+        <dc:Bounds x="265" y="163" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0t21ozx_di" bpmnElement="EndEvent_0t21ozx">
+        <dc:Bounds x="841" y="131" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_17wy5hs_di" bpmnElement="ExclusiveGateway_17wy5hs" isMarkerVisible="true">
+        <dc:Bounds x="574" y="178" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="633.5" y="196" width="41" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_10pk3hx_di" bpmnElement="SequenceFlow_10pk3hx">
+        <di:waypoint x="599" y="178" />
+        <di:waypoint x="599" y="149" />
+        <di:waypoint x="678" y="149" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="608" y="161" width="13" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_1n9u5hf_di" bpmnElement="EndEvent_1n9u5hf">
+        <dc:Bounds x="841" y="250" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ymnv8s_di" bpmnElement="SequenceFlow_0ymnv8s">
+        <di:waypoint x="778" y="268" />
+        <di:waypoint x="841" y="268" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0bncebw_di" bpmnElement="SequenceFlow_0bncebw">
+        <di:waypoint x="513" y="203" />
+        <di:waypoint x="574" y="203" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0gftdlv_di" bpmnElement="SequenceFlow_0gftdlv">
+        <di:waypoint x="599" y="228" />
+        <di:waypoint x="599" y="268" />
+        <di:waypoint x="678" y="268" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="605" y="245" width="18" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BusinessRuleTask_17hwzij_di" bpmnElement="Task_0pa8aok">
+        <dc:Bounds x="413" y="163" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_11irm8c_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="153" y="185" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_16ww3ml_di" bpmnElement="SequenceFlow_16ww3ml">
+        <di:waypoint x="778" y="149" />
+        <di:waypoint x="841" y="149" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_0nklfqz_di" bpmnElement="Task_SendCandidatetoShortlist">
+        <dc:Bounds x="678" y="228" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_17g3w28_di" bpmnElement="Task_RejectCandidate">
+        <dc:Bounds x="678" y="109" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
