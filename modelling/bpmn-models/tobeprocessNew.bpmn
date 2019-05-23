@@ -11,7 +11,6 @@
       <bpmn:lane id="Lane_0fa5p4n" name="HR">
         <bpmn:flowNodeRef>ServiceTask_0twgikj</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ParallelGateway_1ed9kr4</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_02xzzl6</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>IntermediateCatchEvent_1m0bw18</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_0v6bf5z</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_109bmu2</bpmn:flowNodeRef>
@@ -33,6 +32,7 @@
         <bpmn:flowNodeRef>SubProcess_0kw96ex</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>SubProcess_00tpdkb</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>IntermediateCatchEvent_0o9t8b5</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_02xzzl6</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_1dbby5g" name="Business">
         <bpmn:flowNodeRef>StartEvent_1erll1w</bpmn:flowNodeRef>
@@ -197,13 +197,6 @@ object.budgetAvailable;</camunda:script>
       <bpmn:outgoing>SequenceFlow_0s78nzl</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_17q6ixg</bpmn:outgoing>
     </bpmn:parallelGateway>
-    <bpmn:task id="Task_02xzzl6" name="Create shortlist">
-      <bpmn:incoming>SequenceFlow_0s78nzl</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1nq0z9i</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_19esmba">
-        <bpmn:targetRef>DataStoreReference_0mmp88d</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:task>
     <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_1m0bw18" name="2 weeks">
       <bpmn:incoming>SequenceFlow_1nq0z9i</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_13ul1dj</bpmn:outgoing>
@@ -252,7 +245,7 @@ object.budgetAvailable;</camunda:script>
         <bpmn:targetRef>DataStoreReference_0mmp88d</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:userTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1dj73cn" name="suitable candidate?" default="SequenceFlow_05j52wn">
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1dj73cn" name="suitable candidate?">
       <bpmn:incoming>SequenceFlow_1yswlj4</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_05j52wn</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_02uj40v</bpmn:outgoing>
@@ -380,7 +373,7 @@ object.budgetAvailable;</camunda:script>
       </bpmn:task>
       <bpmn:intermediateCatchEvent id="StartEvent_1mfry4g" name="application received">
         <bpmn:outgoing>SequenceFlow_0qwhurx</bpmn:outgoing>
-        <bpmn:messageEventDefinition />
+        <bpmn:messageEventDefinition messageRef="Message_1h1ryl5" />
       </bpmn:intermediateCatchEvent>
     </bpmn:subProcess>
     <bpmn:subProcess id="SubProcess_16o3751">
@@ -400,7 +393,7 @@ object.budgetAvailable;</camunda:script>
       </bpmn:endEvent>
       <bpmn:sequenceFlow id="SequenceFlow_0sepknc" sourceRef="Task_1buzve9" targetRef="EndEvent_092k9oo" />
       <bpmn:sequenceFlow id="SequenceFlow_1q4xgqv" sourceRef="StartEvent_1yn20jl" targetRef="Task_1buzve9" />
-      <bpmn:userTask id="Task_1buzve9" name="schedule interview 1">
+      <bpmn:userTask id="Task_1buzve9" name="schedule interview">
         <bpmn:incoming>SequenceFlow_1q4xgqv</bpmn:incoming>
         <bpmn:outgoing>SequenceFlow_0sepknc</bpmn:outgoing>
       </bpmn:userTask>
@@ -510,21 +503,31 @@ object.budgetAvailable;</camunda:script>
     <bpmn:sequenceFlow id="SequenceFlow_1nq0z9i" sourceRef="Task_02xzzl6" targetRef="IntermediateCatchEvent_1m0bw18" />
     <bpmn:sequenceFlow id="SequenceFlow_13ul1dj" sourceRef="IntermediateCatchEvent_1m0bw18" targetRef="Task_0sya2rz" />
     <bpmn:sequenceFlow id="SequenceFlow_04q30rj" name="no" sourceRef="ExclusiveGateway_0jgzej0" targetRef="Task_0uzj2q8" />
-    <bpmn:sequenceFlow id="SequenceFlow_1t6btrm" name="yes" sourceRef="ExclusiveGateway_0jgzej0" targetRef="Task_02a16fl" />
+    <bpmn:sequenceFlow id="SequenceFlow_1t6btrm" name="yes" sourceRef="ExclusiveGateway_0jgzej0" targetRef="Task_02a16fl">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0fuqxa5" sourceRef="Task_02a16fl" targetRef="ExclusiveGateway_0khdda7" />
     <bpmn:sequenceFlow id="SequenceFlow_1ly16cq" name="no" sourceRef="ExclusiveGateway_0khdda7" targetRef="Task_0uzj2q8" />
     <bpmn:sequenceFlow id="SequenceFlow_05onys1" sourceRef="Task_0sya2rz" targetRef="ExclusiveGateway_0jgzej0" />
-    <bpmn:sequenceFlow id="SequenceFlow_03amta8" name="yes" sourceRef="ExclusiveGateway_0khdda7" targetRef="SubProcess_16o3751" />
+    <bpmn:sequenceFlow id="SequenceFlow_03amta8" name="yes" sourceRef="ExclusiveGateway_0khdda7" targetRef="SubProcess_16o3751">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0lm9upw" sourceRef="SubProcess_16o3751" targetRef="SubProcess_06v4qfg" />
     <bpmn:sequenceFlow id="SequenceFlow_007d198" name="no" sourceRef="ExclusiveGateway_0v6bf5z" targetRef="Task_109bmu2" />
     <bpmn:sequenceFlow id="SequenceFlow_13pkwsl" sourceRef="Task_109bmu2" targetRef="EndEvent_09dj5q8" />
     <bpmn:sequenceFlow id="SequenceFlow_0ax7lcv" sourceRef="SubProcess_06v4qfg" targetRef="ExclusiveGateway_0v6bf5z" />
-    <bpmn:sequenceFlow id="SequenceFlow_00huv54" name="yes" sourceRef="ExclusiveGateway_0v6bf5z" targetRef="SubProcess_0kw96ex" />
+    <bpmn:sequenceFlow id="SequenceFlow_00huv54" name="yes" sourceRef="ExclusiveGateway_0v6bf5z" targetRef="SubProcess_0kw96ex">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0eljmme" sourceRef="SubProcess_0kw96ex" targetRef="SubProcess_1j4bvll" />
     <bpmn:sequenceFlow id="SequenceFlow_0134mgs" sourceRef="SubProcess_1j4bvll" targetRef="Task_07xkgjq" />
-    <bpmn:sequenceFlow id="SequenceFlow_05j52wn" name="no" sourceRef="ExclusiveGateway_1dj73cn" targetRef="EndEvent_07nvia3" />
+    <bpmn:sequenceFlow id="SequenceFlow_05j52wn" name="no" sourceRef="ExclusiveGateway_1dj73cn" targetRef="EndEvent_07nvia3">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1yswlj4" sourceRef="Task_07xkgjq" targetRef="ExclusiveGateway_1dj73cn" />
-    <bpmn:sequenceFlow id="SequenceFlow_02uj40v" name="yes" sourceRef="ExclusiveGateway_1dj73cn" targetRef="Task_1axuizg" />
+    <bpmn:sequenceFlow id="SequenceFlow_02uj40v" name="yes" sourceRef="ExclusiveGateway_1dj73cn" targetRef="Task_1axuizg">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0ylbi94" sourceRef="Task_1axuizg" targetRef="Task_09b0ri9" />
     <bpmn:sequenceFlow id="SequenceFlow_1dx0kar" name="yes" sourceRef="ExclusiveGateway_15vuivv" targetRef="Task_15nl4sv" />
     <bpmn:sequenceFlow id="SequenceFlow_1ngvo30" name="no" sourceRef="ExclusiveGateway_15vuivv" targetRef="ExclusiveGateway_1il7eh1">
@@ -543,25 +546,36 @@ object.budgetAvailable;</camunda:script>
     <bpmn:sequenceFlow id="SequenceFlow_09fxf7i" sourceRef="Task_15nl4sv" targetRef="ParallelGateway_1rsbpkk" />
     <bpmn:sequenceFlow id="SequenceFlow_12k4jzy" sourceRef="IntermediateCatchEvent_0p8b9mr" targetRef="ParallelGateway_1rsbpkk" />
     <bpmn:sequenceFlow id="SequenceFlow_10hh42k" name="adjust" sourceRef="ExclusiveGateway_1gtn8ap" targetRef="Task_1s98b69" />
-    <bpmn:sequenceFlow id="SequenceFlow_1p1uqdp" name="wait" sourceRef="ExclusiveGateway_1gtn8ap" targetRef="EndEvent_1glmtql" />
+    <bpmn:sequenceFlow id="SequenceFlow_1p1uqdp" name="wait" sourceRef="ExclusiveGateway_1gtn8ap" targetRef="EndEvent_1glmtql">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${true}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0hyxbax" sourceRef="Task_0uzj2q8" targetRef="ExclusiveGateway_1gtn8ap" />
     <bpmn:sequenceFlow id="SequenceFlow_1juv9yt" sourceRef="Task_1s98b69" targetRef="Task_0cirqhh" />
-    <bpmn:task id="Task_0sya2rz" name="Check shortlist for candidates">
+    <bpmn:sequenceFlow id="SequenceFlow_1l5oqm6" sourceRef="IntermediateCatchEvent_0o9t8b5" targetRef="ExclusiveGateway_15vuivv" />
+    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0o9t8b5" name="Answer received">
+      <bpmn:incoming>SequenceFlow_00fj55o</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1l5oqm6</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1eh4kku" messageRef="Message_165lyz2" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_00fj55o" sourceRef="Task_09b0ri9" targetRef="IntermediateCatchEvent_0o9t8b5" />
+    <bpmn:userTask id="Task_0sya2rz" name="Check shortlist for candidates">
       <bpmn:incoming>SequenceFlow_13ul1dj</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_05onys1</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0z5g0mb">
         <bpmn:targetRef>DataStoreReference_0mmp88d</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
+    </bpmn:userTask>
+    <bpmn:task id="Task_02xzzl6" name="Create shortlist">
+      <bpmn:incoming>SequenceFlow_0s78nzl</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1nq0z9i</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_19esmba">
+        <bpmn:targetRef>DataStoreReference_0mmp88d</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
     </bpmn:task>
-    <bpmn:sequenceFlow id="SequenceFlow_1l5oqm6" sourceRef="IntermediateCatchEvent_0o9t8b5" targetRef="ExclusiveGateway_15vuivv" />
-    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0o9t8b5" name="Answer received">
-      <bpmn:incoming>SequenceFlow_00fj55o</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1l5oqm6</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1eh4kku" />
-    </bpmn:intermediateCatchEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_00fj55o" sourceRef="Task_09b0ri9" targetRef="IntermediateCatchEvent_0o9t8b5" />
   </bpmn:process>
   <bpmn:process id="Process_17lvbly" isExecutable="false" />
+  <bpmn:message id="Message_165lyz2" name="Message_2vo2tcp" />
+  <bpmn:message id="Message_1h1ryl5" name="Message_0l6lbqd" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_01ben6b">
       <bpmndi:BPMNShape id="Participant_0y775we_di" bpmnElement="Participant_0y775we" isHorizontal="true">
@@ -743,9 +757,6 @@ object.budgetAvailable;</camunda:script>
         <di:waypoint x="808" y="589" />
         <di:waypoint x="859" y="589" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Task_02xzzl6_di" bpmnElement="Task_02xzzl6">
-        <dc:Bounds x="981" y="729" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_19esmba_di" bpmnElement="DataOutputAssociation_19esmba">
         <di:waypoint x="1081" y="764" />
         <di:waypoint x="3382" y="544" />
@@ -1216,9 +1227,6 @@ object.budgetAvailable;</camunda:script>
         <di:waypoint x="4801" y="379" />
         <di:waypoint x="4801" y="607" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Task_1wz5u1z_di" bpmnElement="Task_0sya2rz">
-        <dc:Bounds x="1252" y="1038" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1l5oqm6_di" bpmnElement="SequenceFlow_1l5oqm6">
         <di:waypoint x="4819" y="625" />
         <di:waypoint x="4874" y="625" />
@@ -1244,6 +1252,12 @@ object.budgetAvailable;</camunda:script>
         <bpmndi:BPMNLabel>
           <dc:Bounds x="765" y="614" width="53" height="27" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="UserTask_11nea1z_di" bpmnElement="Task_0sya2rz">
+        <dc:Bounds x="1252" y="1038" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Task_1ueri3k_di" bpmnElement="Task_02xzzl6">
+        <dc:Bounds x="981" y="729" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
