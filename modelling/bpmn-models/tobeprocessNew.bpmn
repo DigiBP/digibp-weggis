@@ -58,25 +58,33 @@
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEvent_1erll1w">
+      <bpmn:outgoing>SequenceFlow_0eiox9c</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:userTask id="Task_0cirqhh" name="Define requirements" camunda:assignee="demo">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="requestor" label="Name of Requestor" type="string" defaultValue="Head of Department" />
           <camunda:formField id="department" label="Department" type="enum" defaultValue="Finance">
             <camunda:value id="Finance" name="Finance" />
             <camunda:value id="Marketing" name="Marketing" />
-            <camunda:value id="HR" name="Human Ressourcs" />
+            <camunda:value id="HR" name="Human Ressources" />
+            <camunda:value id="Operations" name="Operations" />
+            <camunda:value id="IT" name="Information Technology" />
+            <camunda:value id="Sales" name="Sales" />
           </camunda:formField>
           <camunda:formField id="job" label="Job Name" type="string" defaultValue="Job Name" />
-          <camunda:formField id="budgetNeeded" label="Budget needed in CHF" type="long" defaultValue="1000" />
-          <camunda:formField id="skillRequirements" label="Skill Requirements" type="string" defaultValue="Accounting" />
-          <camunda:formField id="yearsExperience" label="Years of Experience" type="long" defaultValue="10" />
-          <camunda:formField id="eduRequirements" label="Educational Requirements" type="string" defaultValue="Masters degree" />
-          <camunda:formField id="description" label="Job Describtion" type="string" defaultValue="description" />
+          <camunda:formField id="budgetNeeded" label="Annual budget needed in CHF" type="long" defaultValue="100000" />
+          <camunda:formField id="skillRequirements" label="Skill requirements" type="string" defaultValue="Skill requirements" />
+          <camunda:formField id="yearsExperience" label="Years of experience" type="long" defaultValue="0" />
+          <camunda:formField id="eduRequirements" label="Educational requirements" type="enum" defaultValue="None">
+            <camunda:value id="None" name="None" />
+            <camunda:value id="Bachelors" name="Bachelors Degree" />
+            <camunda:value id="Masters" name="Masters Degree" />
+            <camunda:value id="PhD" name="Doctor" />
+          </camunda:formField>
+          <camunda:formField id="description" label="Job description" type="string" defaultValue="Job description" />
         </camunda:formData>
       </bpmn:extensionElements>
-      <bpmn:outgoing>SequenceFlow_0eiox9c</bpmn:outgoing>
-    </bpmn:startEvent>
-    <bpmn:userTask id="Task_0cirqhh" name="Define requirements">
       <bpmn:incoming>SequenceFlow_0eiox9c</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1juv9yt</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0qmizvd</bpmn:outgoing>
@@ -170,7 +178,7 @@ object.budgetAvailable;</camunda:script>
         <camunda:connector>
           <camunda:inputOutput>
             <camunda:inputParameter name="method">GET</camunda:inputParameter>
-            <camunda:inputParameter name="url">https://hook.integromat.com/c5re0uvsdldbg5mjt6kku36o2c8fiaot</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/r88ivvojm057ep7l4u2lf6m72rju7d2y</camunda:inputParameter>
           </camunda:inputOutput>
           <camunda:connectorId>http-connector</camunda:connectorId>
         </camunda:connector>
@@ -200,7 +208,7 @@ object.budgetAvailable;</camunda:script>
       <bpmn:incoming>SequenceFlow_1nq0z9i</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_13ul1dj</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0312hti">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">2</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P14D</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:exclusiveGateway id="ExclusiveGateway_0jgzej0" name="candidates available?" default="SequenceFlow_04q30rj">
@@ -451,7 +459,7 @@ object.budgetAvailable;</camunda:script>
       <bpmn:incoming>SequenceFlow_17q6ixg</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_12k4jzy</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_0odlnrf">
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">10</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P10D</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:serviceTask id="Task_02xzzl6" name="Create shortlist">
@@ -1293,74 +1301,74 @@ rowNumber= object.rowNumber;</camunda:script>
         <dc:Bounds x="981" y="796" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_15n7nnb_di" bpmnElement="ServiceTask_15n7nnb">
-        <dc:Bounds x="838" y="574" width="100" height="80" />
+        <dc:Bounds x="637" y="541" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_0o4xkt3_di" bpmnElement="EndEvent_0o4xkt3">
-        <dc:Bounds x="1414" y="542" width="36" height="36" />
+        <dc:Bounds x="1213" y="509" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ExclusiveGateway_02ajzow_di" bpmnElement="ExclusiveGateway_02ajzow" isMarkerVisible="true">
-        <dc:Bounds x="1147" y="589" width="50" height="50" />
+        <dc:Bounds x="946" y="556" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1207.5" y="607" width="41" height="14" />
+          <dc:Bounds x="1007" y="574" width="41" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_08m029a_di" bpmnElement="EndEvent_08m029a">
-        <dc:Bounds x="1414" y="661" width="36" height="36" />
+        <dc:Bounds x="1213" y="628" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BusinessRuleTask_1h0splj_di" bpmnElement="BusinessRuleTask_1h0splj">
-        <dc:Bounds x="986" y="574" width="100" height="80" />
+        <dc:Bounds x="785" y="541" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_02ajwhw_di" bpmnElement="ServiceTask_02ajwhw">
-        <dc:Bounds x="1251" y="639" width="100" height="80" />
+        <dc:Bounds x="1050" y="606" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_0kqw4i1_di" bpmnElement="ServiceTask_0kqw4i1">
-        <dc:Bounds x="1251" y="520" width="100" height="80" />
+        <dc:Bounds x="1050" y="487" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0fvaiwg_di" bpmnElement="SequenceFlow_0fvaiwg">
-        <di:waypoint x="938" y="614" />
-        <di:waypoint x="986" y="614" />
+        <di:waypoint x="737" y="581" />
+        <di:waypoint x="785" y="581" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0p6rpae_di" bpmnElement="SequenceFlow_0p6rpae">
-        <di:waypoint x="1351" y="560" />
-        <di:waypoint x="1414" y="560" />
+        <di:waypoint x="1150" y="527" />
+        <di:waypoint x="1213" y="527" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1vmggbw_di" bpmnElement="SequenceFlow_1vmggbw">
-        <di:waypoint x="1086" y="614" />
-        <di:waypoint x="1147" y="614" />
+        <di:waypoint x="885" y="581" />
+        <di:waypoint x="946" y="581" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_17pgaye_di" bpmnElement="SequenceFlow_17pgaye">
-        <di:waypoint x="1172" y="589" />
-        <di:waypoint x="1172" y="560" />
-        <di:waypoint x="1251" y="560" />
+        <di:waypoint x="971" y="556" />
+        <di:waypoint x="971" y="527" />
+        <di:waypoint x="1050" y="527" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1181" y="572.5" width="13" height="14" />
+          <dc:Bounds x="980" y="540" width="13" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_10ezn0p_di" bpmnElement="SequenceFlow_10ezn0p">
-        <di:waypoint x="1172" y="639" />
-        <di:waypoint x="1172" y="679" />
-        <di:waypoint x="1251" y="679" />
+        <di:waypoint x="971" y="606" />
+        <di:waypoint x="971" y="646" />
+        <di:waypoint x="1050" y="646" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1179" y="656" width="17" height="14" />
+          <dc:Bounds x="978" y="623" width="17" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_10yiue1_di" bpmnElement="SequenceFlow_10yiue1">
-        <di:waypoint x="1351" y="679" />
-        <di:waypoint x="1414" y="679" />
+        <di:waypoint x="1150" y="646" />
+        <di:waypoint x="1213" y="646" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="StartEvent_1yjp288_di" bpmnElement="StartEvent_0tha7l6">
-        <dc:Bounds x="726" y="596" width="36" height="36" />
+        <dc:Bounds x="525" y="563" width="36" height="36" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1aqy4y1_di" bpmnElement="SequenceFlow_1aqy4y1">
-        <di:waypoint x="762" y="614" />
-        <di:waypoint x="838" y="614" />
+        <di:waypoint x="561" y="581" />
+        <di:waypoint x="637" y="581" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="DataOutputAssociation_1uvv5bw_di" bpmnElement="DataOutputAssociation_1uvv5bw">
-        <di:waypoint x="1490" y="609" />
+        <di:waypoint x="1289" y="582" />
         <di:waypoint x="3382" y="609" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="SubProcess_1u9zqnl_di" bpmnElement="Application" isExpanded="true">
-        <dc:Bounds x="626" y="460" width="864" height="297" />
+        <dc:Bounds x="425" y="427" width="864" height="297" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

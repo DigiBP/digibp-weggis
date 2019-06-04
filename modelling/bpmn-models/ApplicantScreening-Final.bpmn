@@ -128,10 +128,10 @@ rowNumber= object.rowNumber;</camunda:script>
     <bpmn:sequenceFlow id="SequenceFlow_1mv49rb" sourceRef="ServiceTask_13nuyrl" targetRef="EndEvent_0i2di7m" />
     <bpmn:sequenceFlow id="SequenceFlow_0pxg4jw" sourceRef="BusinessRuleTask_0osdbj0" targetRef="ExclusiveGateway_16l8dpf" />
     <bpmn:sequenceFlow id="SequenceFlow_12hp4k7" name="no" sourceRef="ExclusiveGateway_16l8dpf" targetRef="ServiceTask_13nuyrl">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${candidateEligible.decision== false}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${candidateEligible.Decision==false}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_16q55ei" name="yes" sourceRef="ExclusiveGateway_16l8dpf" targetRef="ServiceTask_14i3mck">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${candidateEligible.decision== true}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${candidateEligible.Decision==true}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0lzub2z" sourceRef="ServiceTask_14i3mck" targetRef="EndEvent_0yxmpcw" />
   </bpmn:process>
