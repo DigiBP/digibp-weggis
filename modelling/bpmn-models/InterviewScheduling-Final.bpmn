@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0f00tnf" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.0-beta.2">
+  <bpmn:process id="scheduleInterview" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_0xn600l">
+      <bpmn:outgoing>SequenceFlow_00mttd3</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_1qu09ys">
+      <bpmn:incoming>SequenceFlow_19s0kw9</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_00mttd3" sourceRef="StartEvent_0xn600l" targetRef="ServiceTask_05bmg5z" />
+    <bpmn:serviceTask id="ServiceTask_05bmg5z" name="Send Interview Scheduler">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="url">https://hook.integromat.com/8a71r53y8r3iawqqse1ya66xshrupe2x</camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_00mttd3</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_19s0kw9</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="SequenceFlow_19s0kw9" sourceRef="ServiceTask_05bmg5z" targetRef="EndEvent_1qu09ys" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="scheduleInterview">
+      <bpmndi:BPMNShape id="StartEvent_0xn600l_di" bpmnElement="StartEvent_0xn600l">
+        <dc:Bounds x="156" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_1qu09ys_di" bpmnElement="EndEvent_1qu09ys">
+        <dc:Bounds x="392" y="103" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_00mttd3_di" bpmnElement="SequenceFlow_00mttd3">
+        <di:waypoint x="192" y="121" />
+        <di:waypoint x="250" y="121" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_05bmg5z_di" bpmnElement="ServiceTask_05bmg5z">
+        <dc:Bounds x="250" y="81" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_19s0kw9_di" bpmnElement="SequenceFlow_19s0kw9">
+        <di:waypoint x="350" y="121" />
+        <di:waypoint x="392" y="121" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
